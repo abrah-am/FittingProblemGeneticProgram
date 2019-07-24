@@ -21,8 +21,11 @@ class Item:
 
 # This class represents a collection of items with sorting methods
 class ItemCollection:
-    def __init__(self, noOfItems=10, size=(1, 100), value=(1,100)):
-        self.items = self._generateRandomItems(noOfItems, size, value)
+    def __init__(self, noOfItems=10, size=(1, 100), value=(1,100), items=None):
+        if items is None:
+            self.items = self._generateRandomItems(noOfItems, size, value)
+        else:
+            self.items = items
         
     def getItems(self):
         return self.items
@@ -35,14 +38,19 @@ class ItemCollection:
                 random.randint(size[0],size[1])))
         return result
     
-    def sortBySize(self):
-        self.items = sorted(self.items, key=lambda x: (x.getSize(), x.getValue()), reverse=True)
+    def getItemCollectionBySize(self):
+        bySize = sorted(self.items, key=lambda x: (x.getSize(), x.getValue()), reverse=True)
+        return ItemCollection(items=bySize)
     
-    def sortByValue(self):
-        self.items = sorted(self.items, key=lambda x: (x.getValue(), x.getSize()), reverse=True)
+    def getItemCollectionByValue(self):
+        byValue = sorted(self.items, key=lambda x: (x.getValue(), x.getSize()), reverse=True)
+        return ItemCollection(items=byValue)
+        
     
-    def sortByRatio(self):
-        self.items = sorted(self.items, key=lambda x: (x.getValue() / x.getSize()), reverse=True)
+    def getItemCollectionByRatio(self):
+        byRatio = sorted(self.items, key=lambda x: (x.getValue() / x.getSize()), reverse=True)
+        return ItemCollection(items=byRatio)
+        
     
     def __repr__(self):
         return self.__str__()
