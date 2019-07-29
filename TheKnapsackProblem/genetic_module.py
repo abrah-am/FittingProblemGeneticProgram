@@ -14,6 +14,8 @@ class CandidateSolution:
             self.selected_items = CandidateSolution.get_random_selection(item_collection)
         else:
             self.selected_items = selected_items
+        self.selected_size = self._calculate_selected_size()
+        self.selected_value = self._calculate_selected_value()
 
     @staticmethod
     def get_random_selection(item_collection):
@@ -23,19 +25,27 @@ class CandidateSolution:
     def get_selected_items(self):
         return self.selected_items
 
-    def get_size_of_selected(self):
+    def _calculate_selected_size(self):
         return sum((selected[0].get_size() if selected[1] else 0)
                    for selected in self.selected_items)
-
-    def get_value_of_selected(self):
+    
+    def _calculate_selected_value(self):
         return sum((selected[0].get_value() if selected[1] else 0)
                    for selected in self.selected_items)
+    
+    def get_size_of_selected(self):
+        return self.selected_size
+
+    def get_value_of_selected(self):
+        return self.selected_value
 
     def repair(self, container):
-        while self.get_size_of_selected() > container.get_capacity():
-            item = random.choice(self.get_selected_items())
-            if item[1]:
+        while self.selected_size > container.get_capacity():
+            item = random.choice(self.selected_items)
+            if item[1] == True:
                 item[1] = False
+            self.selected_size = self._calculate_selected_size()
+            self.selected_value = self._calculate_selected_value()
 
     def add_mutation(self, mutation_rate):
         for selected in self.selected_items:
