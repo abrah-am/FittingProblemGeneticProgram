@@ -13,14 +13,14 @@ class TestCandidate(unittest.TestCase):
         itemCol = ItemCollection(20)
         container = Container(100)
         candidate = CandidateSolution(itemCol)
-        self.assertEqual(len(itemCol.getItems()), len(candidate.get_selected_items()))
+        self.assertEqual(len(itemCol.get_items()), len(candidate.get_selected_items()))
 
     def test_repairCandidate(self):
         itemCol = ItemCollection(20)
         container = Container(100)
         candidate = CandidateSolution(itemCol)
         candidate.repair(container)
-        self.assertLessEqual(candidate.get_size_of_selected(), container.getCapacity())
+        self.assertLessEqual(candidate.get_size_of_selected(), container.get_capacity())
 
 
 if __name__ == '__main__':

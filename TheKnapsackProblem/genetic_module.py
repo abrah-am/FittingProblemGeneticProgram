@@ -18,24 +18,24 @@ class CandidateSolution:
     @staticmethod
     def get_random_selection(item_collection):
         return [[item, bool(random.getrandbits(1))]
-                for item in item_collection.getItems()]
+                for item in item_collection.get_items()]
 
     def get_selected_items(self):
         return self.selected_items
 
     def get_size_of_selected(self):
-        return sum((selected[0].getSize() if selected[1] else 0)
+        return sum((selected[0].get_size() if selected[1] else 0)
                    for selected in self.selected_items)
 
     def get_value_of_selected(self):
-        return sum((selected[0].getValue() if selected[1] else 0)
+        return sum((selected[0].get_value() if selected[1] else 0)
                    for selected in self.selected_items)
 
     def repair(self, container):
-        while self.get_size_of_selected() > container.getCapacity():
-            check = random.randint(0, len(self.selected_items) - 1)
-            if self.selected_items[check][1]:
-                self.selected_items[check][1] = False
+        while self.get_size_of_selected() > container.get_capacity():
+            item = random.choice(self.get_selected_items())
+            if item[1]:
+                item[1] = False
 
     def add_mutation(self, mutation_rate):
         for selected in self.selected_items:

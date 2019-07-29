@@ -15,7 +15,7 @@ class TestGeneticAlgorithm(unittest.TestCase):
         container = Container(100)
         algorithm = GeneticAlgorithm(population_size=1000, crossover_rate=9.5, mutation_rate=0.2)
         solution = algorithm.find_optimal_items(item_collection, container)
-        container.fitItems(solution)
+        container.fit_items(solution)
         print('Best Solution Found: ', container)
 
     def test_crossover_results_in_same_size_children(self):

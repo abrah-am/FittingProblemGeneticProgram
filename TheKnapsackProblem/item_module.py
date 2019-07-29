@@ -7,10 +7,10 @@ class Item:
         self.size = size
         self.value = value
 
-    def getSize(self):
+    def get_size(self):
         return self.size
 
-    def getValue(self):
+    def get_value(self):
         return self.value
     
     def __str__(self):
@@ -22,43 +22,42 @@ class Item:
 
 # This class represents a collection of items with sorting methods
 class ItemCollection:
-    def __init__(self, noOfItems=10, size=(1, 100), value=(1,100), items=None):
+    def __init__(self, no_items=10, size=(1, 100), value=(1, 100), items=None):
         if items is None:
-            self.items = self._generateRandomItems(noOfItems, size, value)
+            self.items = self._generate_random_items(no_items, size, value)
         else:
             self.items = items
         
-    def getItems(self):
+    def get_items(self):
         return self.items
     
-    def _generateRandomItems(self, noOfItems=10, size=(1, 100), value=(1,100)):
+    @staticmethod
+    def _generate_random_items(no_items=10, size=(1, 100), value=(1, 100)):
         result = []
-        for i in range(noOfItems):
+        for i in range(no_items):
             result.append(Item(
                 random.randint(size[0],size[1]), 
                 random.randint(size[0],size[1])))
         return result
     
-    def getItemCollectionBySize(self):
-        bySize = sorted(self.items, key=lambda x: (x.getSize(), x.getValue()), reverse=True)
-        return ItemCollection(items=bySize)
+    def get_item_collection_by_size(self):
+        by_size = sorted(self.items, key=lambda x: (x.get_size(), x.get_value()), reverse=True)
+        return ItemCollection(items=by_size)
     
-    def getItemCollectionByValue(self):
-        byValue = sorted(self.items, key=lambda x: (x.getValue(), x.getSize()), reverse=True)
-        return ItemCollection(items=byValue)
+    def get_item_collection_by_value(self):
+        by_value = sorted(self.items, key=lambda x: (x.get_value(), x.get_size()), reverse=True)
+        return ItemCollection(items=by_value)
         
-    
-    def getItemCollectionByRatio(self):
-        byRatio = sorted(self.items, key=lambda x: (x.getValue() / x.getSize()), reverse=True)
-        return ItemCollection(items=byRatio)
-        
-    
+    def get_item_collection_by_ration(self):
+        by_ratio = sorted(self.items, key=lambda x: (x.get_value() / x.get_size()), reverse=True)
+        return ItemCollection(items=by_ratio)
+
     def __repr__(self):
         return self.__str__()
         
     def __str__(self):
         response = ''
-        for item in self.getItems():
+        for item in self.get_items():
             response += str(item) + '\t'
         return response
 
@@ -69,32 +68,32 @@ class Container:
         self.capacity = capacity
         self.items = []
     
-    def setItems(self, items):
+    def set_items(self, items):
         self.items = items
         
-    def getItems(self):
+    def get_items(self):
         return self.items
     
-    def getCapacity(self):
+    def get_capacity(self):
         return self.capacity
     
-    def getTotalSize(self):
+    def get_total_size(self):
         if len(self.items) > 0:
-            return sum(i.getSize() for i in  self.items)
+            return sum(i.get_size() for i in self.items)
         else:
             return 0
     
-    def fitItems(self, itemCollection):
+    def fit_items(self, itemCollection):
         self.items = []
-        sizeUsed=0
-        for item in itemCollection.getItems():
-            if((sizeUsed + item.getSize()) <= self.capacity):
+        size_used=0
+        for item in itemCollection.get_items():
+            if (size_used + item.get_size()) <= self.capacity:
                 self.items.append(item)
-                sizeUsed += item.getSize()
+                size_used += item.get_size()
     
-    def getTotalValue(self):
+    def get_total_value(self):
         if len(self.items) > 0:
-            return sum(i.getValue() for i in  self.items)
+            return sum(i.get_value() for i in self.items)
         else:
             return 0
         
@@ -103,4 +102,4 @@ class Container:
     
     def __str__(self):
         return 'Items:{}\nTotal Occupied Size:{}\nTotal Value:{}'.format(
-            self.getItems(), self.getTotalSize(), self.getTotalValue())
+            self.get_items(), self.get_total_size(), self.get_total_value())
