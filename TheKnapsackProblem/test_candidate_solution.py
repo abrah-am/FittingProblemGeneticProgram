@@ -1,7 +1,7 @@
 import unittest
 
-from TheKnapsackProblem.genetic_module import GeneticAlgorithm, CandidateSolution
-from TheKnapsackProblem.item_module import ItemCollection, Container
+from genetic_module import *
+from item_module import *
 
 
 class TestCandidate(unittest.TestCase):
@@ -10,15 +10,11 @@ class TestCandidate(unittest.TestCase):
         super(TestCandidate, self).__init__(*args, **kwargs)
 
     def test_candidateSize(self):
-        itemCol = ItemCollection(20)
         container = Container(100)
-        candidate = CandidateSolution(itemCol)
-        self.assertEqual(len(itemCol.get_items()), len(candidate.get_selected_items()))
-
-    def test_repairCandidate(self):
-        itemCol = ItemCollection(20)
-        container = Container(100)
-        candidate = CandidateSolution(itemCol)
+        candidate = CandidateSolution(selected_items=[[Item(10, 10), True], [Item(20, 20), True],
+                                                      [Item(30, 30), True], [Item(40, 40), True],
+                                                      [Item(50, 50), True]])
+        self.assertGreaterEqual(candidate.get_size_of_selected(), container.get_capacity())
         candidate.repair(container)
         self.assertLessEqual(candidate.get_size_of_selected(), container.get_capacity())
 

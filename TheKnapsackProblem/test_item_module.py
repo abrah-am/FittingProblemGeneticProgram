@@ -1,5 +1,5 @@
 import unittest
-from TheKnapsackProblem.item_module import *
+from item_module import *
 
 
 class TestItemModule(unittest.TestCase):

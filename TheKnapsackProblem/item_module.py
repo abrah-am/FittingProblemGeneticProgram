@@ -19,23 +19,28 @@ class Item:
     def __repr__(self):
         return self.__str__()
 
+    def __eq__(self, other):
+        return self.size == other.size and self.value == other.value
+
+
 # This class contains the programming solution
 class NonGASolutions: 
     @staticmethod
     def solution_based_on_value(item_collection):
-        by_size = sorted(item_collection.get_items(), key=lambda x: (x.get_size(), x.get_value()), reverse=True)
-        return ItemCollection(items=by_size)
+        by_value = sorted(item_collection.get_items(), key=lambda x: (x.get_value(), x.get_size()), reverse=True)
+        return ItemCollection(items=by_value)
     
     @staticmethod
     def solution_based_on_size(item_collection):
-        by_size = sorted(item_collection.get_items(), key=lambda x: (x.get_value(), x.get_size()), reverse=True)
+        by_size = sorted(item_collection.get_items(), key=lambda x: (x.get_size(), x.get_value()), reverse=True)
         return ItemCollection(items=by_size)
         
     @staticmethod
     def solution_based_on_ratio(item_collection):
-        by_size = sorted(item_collection.get_items(), key=lambda x: (x.get_value()/x.get_size()), reverse=True)
-        return ItemCollection(items=by_size)
-    
+        by_ratio = sorted(item_collection.get_items(), key=lambda x: (x.get_value()/x.get_size()), reverse=True)
+        return ItemCollection(items=by_ratio)
+
+
 # This class represents a collection of items with sorting methods
 class ItemCollection:
     def __init__(self, no_items=10, size=(1, 100), value=(1, 100), items=None):
@@ -47,7 +52,8 @@ class ItemCollection:
     def get_items(self):
         return self.items
     
-    def _generate_random_items(self, no_items=10, size=(1, 100), value=(1, 100)):
+    @staticmethod
+    def _generate_random_items(no_items=10, size=(1, 100), value=(1, 100)):
         return [Item(random.randint(size[0], size[1]), random.randint(value[0], value[1])) for i in range(no_items)]
     
     def __repr__(self):
@@ -58,6 +64,7 @@ class ItemCollection:
         for item in self.get_items():
             response += str(item) + '\t'
         return response
+
 
 # This class represents a container to place items in.
 class Container:
