@@ -26,19 +26,19 @@ class Item:
 # This class contains the programming solution
 class NonGASolutions: 
     @staticmethod
-    def solution_based_on_value(item_collection):
-        by_value = sorted(item_collection.get_items(), key=lambda x: (x.get_value(), x.get_size()), reverse=True)
-        return ItemCollection(items=by_value)
+    def by_value_then_size(item_collection):
+        sorted_items = sorted(item_collection.get_items(), key=lambda x: (x.get_value(), -x.get_size()), reverse=True)
+        return ItemCollection(items=sorted_items)
     
     @staticmethod
-    def solution_based_on_size(item_collection):
-        by_size = sorted(item_collection.get_items(), key=lambda x: (x.get_size(), x.get_value()), reverse=True)
-        return ItemCollection(items=by_size)
+    def by_size_then_value(item_collection):
+        sorted_items = sorted(item_collection.get_items(), key=lambda x: (x.get_size(), -x.get_value()))
+        return ItemCollection(items=sorted_items)
         
     @staticmethod
-    def solution_based_on_ratio(item_collection):
-        by_ratio = sorted(item_collection.get_items(), key=lambda x: (x.get_value()/x.get_size()), reverse=True)
-        return ItemCollection(items=by_ratio)
+    def by_ratio_value_size(item_collection):
+        sorted_items = sorted(item_collection.get_items(), key=lambda x: (x.get_value()/x.get_size()), reverse=True)
+        return ItemCollection(items=sorted_items)
 
 
 # This class represents a collection of items with sorting methods
@@ -64,6 +64,14 @@ class ItemCollection:
         for item in self.get_items():
             response += str(item) + '\t'
         return response
+
+    def __eq__(self, other):
+        if len(self.items) != len(other.items):
+            return False
+        for i in range(len(self.items)):
+            if self.items[i] != other.items[i]:
+                return False
+        return True
 
 
 # This class represents a container to place items in.
