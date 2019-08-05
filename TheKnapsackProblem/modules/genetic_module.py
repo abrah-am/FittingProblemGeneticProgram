@@ -1,7 +1,8 @@
-import random
 import copy
+import random
 import sys
-from item_module import ItemCollection, Container, Item
+
+from modules.item_module import *
 
 
 class CandidateSolution:

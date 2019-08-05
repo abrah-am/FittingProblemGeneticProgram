@@ -1,8 +1,8 @@
-import unittest
 import copy
+import unittest
 
-from genetic_module import GeneticAlgorithm, CandidateSolution
-from item_module import *
+from modules.genetic_module import *
+from modules.item_module import *
 
 
 class TestGeneticAlgorithm(unittest.TestCase):

@@ -1,7 +1,6 @@
 import unittest
 
-from genetic_module import *
-from item_module import *
+from modules.genetic_module import *
 
 
 class TestCandidate(unittest.TestCase):
